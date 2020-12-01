@@ -12,6 +12,7 @@
 #define SENSOR_SIZE AMG88xx_PIXEL_ARRAY_SIZE
 
 extern float pixels[SENSOR_SIZE];
+extern volatile bool imageReady;
 
 void initSensor();
 void readSensor();
