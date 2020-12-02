@@ -111,6 +111,9 @@ void seekAlignment() {
   motorState.xa += dx; motorState.xb += min(b_budget_x, horizontal_movement - dx);
   motorState.ya += dy; motorState.yb += min(b_budget_y, vertical_movement - dy);
 
+  // it should be impossible for motor states to escape from the [-1.0, 1.0] range,
+  // so no value-clamping will be performed here.
+
   // update the stepper motor positions based on the motor states
   updateOrientations();
 }
