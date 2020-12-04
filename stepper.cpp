@@ -1,7 +1,7 @@
 #include "stepper.h"
 
-AccelStepper xa(2, 2, 3); AccelStepper ya(2, 4, 5);
-AccelStepper xb(2, 6, 7); AccelStepper yb(2, 8, 9);
+AccelStepper xa(2, 10, 11); AccelStepper ya(2, 4, 5);
+AccelStepper xb(2,  8, 9); AccelStepper yb(2, 6, 7);
 
 // ordering for the following two objects are [ xa, ya, xb, yb ]
 MultiStepper steppers;
@@ -24,9 +24,8 @@ void initMotors() {
   steppers.addStepper(xb); steppers.addStepper(yb);
 }
 
-// f32 -> (u32 intersect with [0, 100])
 long toStepsSafe(float abstract) { 
-  return 100 + 100 * max(min(abstract, 1.0), -1.0);
+  return (long)(100.0 * abstract);
 }
 
 // updates all stepper motor target positions
@@ -41,8 +40,5 @@ void updateOrientations() {
   steppers.moveTo(locations);
 }
 
-// moves all motors by some ∆x_i, each seeking their position with acceleration.
-void runSteppers() {
-  const long start = millis();
-  while (millis() - start < STEP_TIME) { steppers.run(); }
-}
+// moves all motors by some ∆u_i, each seeking their position with acceleration.
+void runSteppers() { steppers.run(); }
